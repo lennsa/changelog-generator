@@ -95,15 +95,15 @@ class Repo():
 
     def generate_changelog(self):
 
-        commits = self.get_commits()
         tags = self.get_tags()
+        commits = self.get_commits()
 
-        print('commits:',len(commits))
         print('tags:', len(tags))
+        print('commits:',len(commits))
 
-        commits = pop_list(commits)
         tags.reverse()
         tags = pop_list(tags)
+        commits = pop_list(commits)
 
         releace = []
         i = 0
@@ -113,13 +113,13 @@ class Repo():
             for commit in commits:
                 releace.append(commit)
                 if commit['binsha'] == tag['commit']:
-                    print(tag['name'], 'commits:', len(releace))
+                    print(f"tag: {tag['name']} --> commits: {len(releace)}")
                     releace = []
                     i -= 1
                     break
         
-        print('rest commits:', len(releace))
         print('rest tags:', i)
+        print('rest commits:', len(releace))
 
         # while tags:
         #     tag = tags.pop()
