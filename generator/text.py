@@ -1,45 +1,57 @@
 import git
 
-def test(repo_path, commit):
+def get_commits(repo_path):
+
     repo = git.Repo(repo_path)
-    master = repo.heads.master
-    log = master.log()
 
     commits = list(repo.iter_commits("master"))
+
+    commits_list = []
 
     for commit in commits:
 
         message = commit.message
-        print(message)
 
         message = message.split('\n')
 
-        commit = {}
+        commit_dict = {}
+
+        commit_dict['type'] = None
+        commit_dict['scope'] = None
 
         try:
-            commit['type'] = message[0][:message[0].index(': ')]
+            commit_dict['type'] = message[0][:message[0].index(': ')]
         except ValueError:
-            continue
-        if commit['type'] not in ['feat', 'fix', 'refactor']:
-            continue
+            commit_dict['type'] = None
 
-        try:
-            commit['scope'] = commit['type'][commit['type'].index('(')+1:commit['type'].index(')')]
-        except ValueError:
-            commit['scope'] = None
+        if commit_dict['type'] not in ['feat', 'fix', 'refactor', 'chore']:
+            commit_dict['type'] = None
+            commit_dict['description'] = message[0]
         else:
-            commit['type'] = commit['type'][:commit['type'].index('(')]
 
-        commit['description'] = message[0][message[0].index(': ')+2:]
+            try:
+                commit_dict['scope'] = commit_dict['type'][commit_dict['type'].index('(')+1:commit_dict['type'].index(')')]
+            except ValueError:
+                commit_dict['scope'] = None
+            else:
+                commit_dict['type'] = commit_dict['type'][:commit_dict['type'].index('(')]
 
 
-        # if len(message) > 1:
-        #     commit['body'] = message[1]
-        # else:
-        #     commit['body'] = None
-        # if len(message) > 2:
-        #     commit['footer'] = message[2]
-        # else:
-        #     commit['footer'] = None
+            commit_dict['description'] = message[0][message[0].index(': ')+2:]
+        
+        commit_dict['message'] = message[0]
 
-        # print(commit)
+        pos = 0
+        commit_dict['body'] = ''
+        commit_dict['footer'] = ''
+        for line in message[1:]:
+            if not line:
+                pos += 1
+            elif pos == 1:
+                commit_dict['body'] += line + '\n'
+            elif pos == 2:
+                commit_dict['footer'] += line + '\n'
+
+        commits_list.append(commit_dict)
+    
+    return commits_list
