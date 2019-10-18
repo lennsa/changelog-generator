@@ -2,15 +2,13 @@ import git
 
 types = ['feat', 'fix', 'refactor', 'chore']
 
-spacer = ['\n', '================\n', '-----------------------------------------------------------\n']
-
 def pop_list(pop_list):
     for item in pop_list:
         yield item
 
 def changelog_entry(releace, version):
 
-    text = '## ' + version + '\n' + spacer[1] + '\n'
+    text = '## ' + version + '\n\n'
     text += changelog_entry_body(releace)
     text += '\n'
     return text
@@ -45,7 +43,7 @@ def changelog_block(title, items):
     return text
 
 def changelog_header(name):
-    return '# ' + name + ' Changelog\n' + spacer[1] + '\n'
+    return '# ' + name + ' Changelog\n\n'
 
 def changelog_footer(text):
     return text + '\n'

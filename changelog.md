@@ -1,8 +1,6 @@
 # mailbox Changelog
-================
 
 ## v0.5.1
-================
 
 chore:
 * Update dependencies
@@ -15,7 +13,6 @@ Other:
 
 
 ## v0.5.0
-================
 
 fix:
 * Add `--` to npm commands
@@ -29,7 +26,6 @@ feat:
 
 
 ## v0.4.2
-================
 
 fix:
 * Dependency security issues by updating them
@@ -39,7 +35,6 @@ chore:
 
 
 ## v0.4.1
-================
 
 chore:
 * Update dependencies
@@ -49,7 +44,6 @@ chore:
 
 
 ## v0.4.0
-================
 
 chore:
 * Update dependencies
@@ -61,7 +55,6 @@ Other:
 
 
 ## v0.3.4
-================
 
 chore:
 * Update dependencies
@@ -70,7 +63,6 @@ chore:
 
 
 ## v0.3.3
-================
 
 fix:
 * Remove npm shrinkwrap
@@ -81,7 +73,6 @@ chore:
 
 
 ## v0.3.2
-================
 
 chore:
 * Update dependencies
@@ -91,7 +82,6 @@ chore:
 
 
 ## v0.3.1
-================
 
 chore:
 * Update dependencies
@@ -102,7 +92,6 @@ fix:
 
 
 ## v0.3.0
-================
 
 chore:
 * Add note to install dependencies
@@ -121,7 +110,6 @@ Other:
 
 
 ## v0.2.2
-================
 
 fix:
 * Add missing license file
@@ -137,7 +125,6 @@ Other:
 
 
 ## v0.2.1
-================
 
 fix:
 * Install correct dependency in new projects
@@ -147,7 +134,6 @@ chore:
 
 
 ## v0.2.0
-================
 
 fix:
 * Use correct npm link in footer template
@@ -162,7 +148,6 @@ chore:
 
 
 ## v0.1.0
-================
 
 feat:
 * Setup
