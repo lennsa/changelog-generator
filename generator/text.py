@@ -1,6 +1,7 @@
 import git
 
-types = ['feat', 'fix', 'refactor', 'chore']
+types = ['feat', 'fix', 'refactor']
+bodys = ['BREAKING CHANGE', 'fix', 'refactor']
 
 def pop_list(pop_list):
     for item in pop_list:
@@ -28,11 +29,11 @@ def changelog_entry_body(releace):
             text += changelog_block(commit_type, [commit['description'] for commit in commits])
             text += '\n'
 
-    for commit_type, commits in commit_dict.items():
-        if commit_type == None:
+    relevant_texts = get_relevant_texts(releace)
+    if len(relevant_texts):
 
-            text += changelog_block('Other', [commit['description'] for commit in commits])
-            text += '\n'
+        text += changelog_block('other', relevant_texts)
+        text += '\n'
 
     return text
 
@@ -47,6 +48,17 @@ def changelog_header(name):
 
 def changelog_footer(text):
     return text + '\n'
+
+def get_relevant_texts(commits):
+    texts = []
+    for commit in commits:
+        for body in bodys:
+            if body in commit['body']:
+                texts.append(commit['body'])
+            elif body in commit['footer']:
+                texts.append(commit['footer'])
+    return texts
+
 
 class Repo():
 
