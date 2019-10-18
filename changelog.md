@@ -12,6 +12,8 @@ Other:
 * docs: Add GitHub Actions badge
 
 
+
+
 ## v0.5.0
 
 fix:
@@ -25,6 +27,8 @@ feat:
 * Add data flag to build command
 
 
+
+
 ## v0.4.2
 
 fix:
@@ -34,6 +38,8 @@ chore:
 * 0.4.2
 
 
+
+
 ## v0.4.1
 
 chore:
@@ -41,6 +47,8 @@ chore:
 * Replace `lodash.merge` with `deepmerge`
 * Replace Express with simple Node http server
 * 0.4.1
+
+
 
 
 ## v0.4.0
@@ -54,12 +62,16 @@ Other:
 * docs: Replace global installation with `npx` command
 
 
+
+
 ## v0.3.4
 
 chore:
 * Update dependencies
 * Remove yarn.lock file
 * 0.3.4
+
+
 
 
 ## v0.3.3
@@ -72,6 +84,8 @@ chore:
 * 0.3.3
 
 
+
+
 ## v0.3.2
 
 chore:
@@ -79,6 +93,8 @@ chore:
 * Replace "Mail Box" with "Mailbox"
 * Improve logging
 * 0.3.2
+
+
 
 
 ## v0.3.1
@@ -89,6 +105,8 @@ chore:
 
 fix:
 * Make attachments folder optional
+
+
 
 
 ## v0.3.0
@@ -109,6 +127,8 @@ Other:
 * docs: Replace old test readme with new data
 
 
+
+
 ## v0.2.2
 
 fix:
@@ -124,6 +144,8 @@ Other:
 * docs: Expand documentation to cover the whole project
 
 
+
+
 ## v0.2.1
 
 fix:
@@ -131,6 +153,8 @@ fix:
 
 chore:
 * 0.2.1
+
+
 
 
 ## v0.2.0
@@ -147,6 +171,8 @@ chore:
 * 0.2.0
 
 
+
+
 ## v0.1.0
 
 feat:
@@ -154,6 +180,8 @@ feat:
 
 chore:
 * 0.1.0
+
+
 
 
 54 commits in 14 version tags
