@@ -1,68 +1,6 @@
 import git
-
-types = ['feat', 'fix', 'refactor']
-bodys = ['BREAKING CHANGE', 'fix', 'refactor']
-
-def pop_list(pop_list):
-    for item in pop_list:
-        yield item
-
-def changelog_entry(releace, version):
-
-    text = '## ' + version + '\n\n'
-    text += changelog_entry_body(releace)
-    text += '\n'
-    return text
-
-def changelog_entry_body(releace):
-    text = ''
-    commit_dict = {}
-    for commit in releace:
-        if commit['type'] in commit_dict:
-            commit_dict[commit['type']].append(commit)
-        else:
-            commit_dict[commit['type']] = [commit]
-                
-    for commit_type, commits in commit_dict.items():
-        if commit_type != None:
-
-            text += changelog_block(commit_type, [commit['description'] + ' (' + commit['link'] + ')' for commit in commits])
-            text += '\n'
-
-    relevant_texts = get_relevant_texts(releace)
-    if len(relevant_texts):
-
-        text += changelog_block(None, relevant_texts)
-        text += '\n'
-
-    return text
-
-def changelog_block(title, items):
-    text = ''
-    if title:
-        text += '### ' + title + '\n'
-    for item in items:
-        if ':' in item[:18]:
-            item = '**' + item[:item.index(':') + 1] + '**' + item[item.index(':') + 1:]
-        text += '* ' + item + '\n'
-    return text
-
-def changelog_header(name):
-    return '# ' + name + ' Changelog\n\n'
-
-def changelog_footer(text):
-    return text + '\n'
-
-def get_relevant_texts(commits):
-    texts = []
-    for commit in commits:
-        for body in bodys:
-            if body in commit['body']:
-                texts.append(commit['body'])
-            elif body in commit['footer']:
-                texts.append(commit['footer'])
-    return texts
-
+import generate
+import utils
 
 class Repo():
 
@@ -106,7 +44,7 @@ class Repo():
         else:
             commit_dict['type'] = commit_dict['type'][:commit_dict['type'].index('(')]
         
-        if commit_dict['type'] not in types:
+        if commit_dict['type'] not in utils.types:
             commit_dict['type'] = None
             commit_dict['scope'] = None
             commit_dict['description'] = message[0]
@@ -117,7 +55,7 @@ class Repo():
         
         commit_dict['message'] = message[0]
 
-        commit_dict['link'] = '(' + 'test' + ')'
+        commit_dict['link'] = 'edoekdoekokfoekoffkoef'
 
         pos = 0
         commit_dict['body'] = ''
@@ -166,7 +104,7 @@ class Repo():
         name = root
         while '/' in name:
             name = name[name.index('/')+1:]
-        text = changelog_header(name)
+        text = generate.changelog_header(name)
 
         if not len(tags): 
             footer = 'No versions structure available in this repo'
@@ -176,7 +114,7 @@ class Repo():
         # print('commits:',len(commits))
 
         commits.reverse()
-        commits = pop_list(commits)
+        commits = utils.pop_list(commits)
 
         releace = []
         releaces = []
@@ -197,13 +135,13 @@ class Repo():
                     break
 
         if len(releace):
-            footer = changelog_block(f'{len(releace)} unallocable commits in {i} further version tags', [commit['message'] for commit in releace])
+            footer = generate.changelog_block(f'{len(releace)} unallocable commits in {i} further version tags', [commit['message'] for commit in releace])
         
         releaces.reverse()
         versions.reverse()
         for index, releace in enumerate(releaces):
-            text += changelog_entry(releace, version=versions[index])
+            text += generate.changelog_entry(releace, version=versions[index])
 
-        text += changelog_footer(footer)
+        text += generate.changelog_footer(footer)
 
         return text
