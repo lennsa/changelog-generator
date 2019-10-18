@@ -26,19 +26,21 @@ def changelog_entry_body(releace):
     for commit_type, commits in commit_dict.items():
         if commit_type != None:
 
-            text += changelog_block(commit_type, [commit['description'] for commit in commits])
+            text += changelog_block(commit_type, [commit['description'] + ' (' + commit['link'] + ')' for commit in commits])
             text += '\n'
 
     relevant_texts = get_relevant_texts(releace)
     if len(relevant_texts):
 
-        text += changelog_block('other', relevant_texts)
+        text += changelog_block(None, relevant_texts)
         text += '\n'
 
     return text
 
 def changelog_block(title, items):
-    text = '### ' + title + '\n'
+    text = ''
+    if title:
+        text += '### ' + title + '\n'
     for item in items:
         if ':' in item[:18]:
             item = '**' + item[:item.index(':') + 1] + '**' + item[item.index(':') + 1:]
@@ -107,13 +109,15 @@ class Repo():
         if commit_dict['type'] not in types:
             commit_dict['type'] = None
             commit_dict['scope'] = None
-            commit_dict['description'] = message[0] + ' (' + 'test' + ')'
+            commit_dict['description'] = message[0]
         elif commit_dict['scope']:
-            commit_dict['description'] = commit_dict['scope'] + ': ' + message[0][message[0].index(': ')+2:] + ' (' + 'test' + ')'
+            commit_dict['description'] = commit_dict['scope'] + ': ' + message[0][message[0].index(': ')+2:]
         else: 
-            commit_dict['description'] = message[0][message[0].index(': ')+2:] + ' (' + 'test' + ')'
+            commit_dict['description'] = message[0][message[0].index(': ')+2:]
         
         commit_dict['message'] = message[0]
+
+        commit_dict['link'] = '(' + 'test' + ')'
 
         pos = 0
         commit_dict['body'] = ''
