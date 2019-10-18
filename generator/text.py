@@ -10,7 +10,7 @@ def changelog_entry(releace, version):
 
     text = '## ' + version + '\n\n'
     text += changelog_entry_body(releace)
-    text += '\n\n\n'
+    text += '\n'
     return text
 
 def changelog_entry_body(releace):
@@ -37,7 +37,7 @@ def changelog_entry_body(releace):
     return text
 
 def changelog_block(title, items):
-    text = title + ':\n'
+    text = '### ' + title + '\n'
     for item in items:
         text += '* ' + item + '\n'
     return text

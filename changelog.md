@@ -2,186 +2,158 @@
 
 ## v0.5.1
 
-chore:
+### chore
 * Update dependencies
 * 0.5.1
 
-Other:
+### Other
 * ci: Setup lint and test
 * ci: Replace deprecated Node.js version syntax
 * docs: Add GitHub Actions badge
 
 
-
-
 ## v0.5.0
 
-fix:
+### fix
 * Add `--` to npm commands
 
-chore:
+### chore
 * Update dependencies
 * 0.5.0
 
-feat:
+### feat
 * Add data flag to build command
-
-
 
 
 ## v0.4.2
 
-fix:
+### fix
 * Dependency security issues by updating them
 
-chore:
+### chore
 * 0.4.2
-
-
 
 
 ## v0.4.1
 
-chore:
+### chore
 * Update dependencies
 * Replace `lodash.merge` with `deepmerge`
 * Replace Express with simple Node http server
 * 0.4.1
 
 
-
-
 ## v0.4.0
 
-chore:
+### chore
 * Update dependencies
 * Add `eslint-plugin-unicorn` to the linting party
 * 0.4.0
 
-Other:
+### Other
 * docs: Replace global installation with `npx` command
-
-
 
 
 ## v0.3.4
 
-chore:
+### chore
 * Update dependencies
 * Remove yarn.lock file
 * 0.3.4
 
 
-
-
 ## v0.3.3
 
-fix:
+### fix
 * Remove npm shrinkwrap
 
-chore:
+### chore
 * Update dependencies
 * 0.3.3
 
 
-
-
 ## v0.3.2
 
-chore:
+### chore
 * Update dependencies
 * Replace "Mail Box" with "Mailbox"
 * Improve logging
 * 0.3.2
 
 
-
-
 ## v0.3.1
 
-chore:
+### chore
 * Update dependencies
 * 0.3.1
 
-fix:
+### fix
 * Make attachments folder optional
-
-
 
 
 ## v0.3.0
 
-chore:
+### chore
 * Add note to install dependencies
 * 0.3.0
 
-fix:
+### fix
 * Improve error logging
 
-feat:
+### feat
 * Implement more dynamic email data system
 
-Other:
+### Other
 * docs: Fix some file name issues and improve some sections
 * docs: Improve clarity of command documentation
 * docs: Replace old test readme with new data
 
 
-
-
 ## v0.2.2
 
-fix:
+### fix
 * Add missing license file
 * Import correct render function (again)
 
-chore:
+### chore
 * Update dependencies
 * Update dependencies
 * 0.2.2
 
-Other:
+### Other
 * docs: Expand documentation to cover the whole project
-
-
 
 
 ## v0.2.1
 
-fix:
+### fix
 * Install correct dependency in new projects
 
-chore:
+### chore
 * 0.2.1
-
-
 
 
 ## v0.2.0
 
-fix:
+### fix
 * Use correct npm link in footer template
 
-feat:
+### feat
 * Run template through Nunjucks
 * Attachment support
 * Improve console logging
 
-chore:
+### chore
 * 0.2.0
-
-
 
 
 ## v0.1.0
 
-feat:
+### feat
 * Setup
 
-chore:
+### chore
 * 0.1.0
-
-
 
 
 54 commits in 14 version tags
