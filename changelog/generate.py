@@ -20,12 +20,15 @@ def changelog_entry_body(releace):
     for commit_type, commits in commit_dict.items():
         if commit_type != None:
 
-            text += changelog_block(commit_type, [commit['description'] + ' (' + commit['link'] + ')' for commit in commits])
+            text += changelog_block(
+                commit_type, 
+                [commit['description'] + ' (' + commit['link'] + ')' for commit in commits] # body
+            )
             text += '\n'
 
     relevant_texts = get_relevant_texts(releace)
-    if len(relevant_texts):
 
+    if len(relevant_texts):
         text += changelog_block(None, relevant_texts)
         text += '\n'
 
@@ -51,8 +54,17 @@ def get_relevant_texts(commits):
     texts = []
     for commit in commits:
         for body in utils.bodys:
-            if body in commit['body']:
+            if 'body' in commit.keys() and body in commit['body']:
                 texts.append(commit['body'])
-            elif body in commit['footer']:
+            if 'footer' in commit.keys() and body in commit['footer']:
                 texts.append(commit['footer'])
+    return texts
+
+def get_relevant_text(commit):
+    texts = []
+    for body in utils.bodys:
+        if 'body' in commit.keys() and body in commit['body']:
+            texts.append(commit['body'])
+        if 'footer' in commit.keys() and body in commit['footer']:
+            texts.append(commit['footer'])
     return texts

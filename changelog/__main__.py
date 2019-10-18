@@ -1,5 +1,5 @@
 import click
-from text import Repo
+from gitrepo import Repo
 
 @click.group()
 def generator():

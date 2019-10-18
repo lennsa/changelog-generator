@@ -26,7 +26,6 @@
 * **BREAKING CHANGE:** Node.js v6 is no longer supported.
 
 
-
 ## v0.3.4
 
 
@@ -54,7 +53,6 @@
 * Implement more dynamic email data system (edoekdoekokfoekoffkoef)
 
 * **BREAKING CHANGE:** This replaces the previous `--test` flag with `--data`. This accepts not only a single value, but also a comma-separated list.
-
 
 
 ## v0.2.2

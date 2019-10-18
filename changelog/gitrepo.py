@@ -58,15 +58,19 @@ class Repo():
         commit_dict['link'] = 'edoekdoekokfoekoffkoef'
 
         pos = 0
-        commit_dict['body'] = ''
-        commit_dict['footer'] = ''
         for line in message[1:]:
             if not line:
                 pos += 1
             elif pos == 1:
-                commit_dict['body'] += line + '\n'
+                if 'body' in commit_dict.keys(): 
+                    commit_dict['body'] += '\n' + line
+                else:
+                    commit_dict['body'] = line
             elif pos == 2:
-                commit_dict['footer'] += line + '\n'
+                if 'footer' in commit_dict.keys():
+                    commit_dict['footer'] += '\n' + line
+                else:
+                    commit_dict['footer'] = line
                 
         return commit_dict
 
