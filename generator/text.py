@@ -40,6 +40,8 @@ def changelog_entry_body(releace):
 def changelog_block(title, items):
     text = '### ' + title + '\n'
     for item in items:
+        if ':' in item[:18]:
+            item = '**' + item[:item.index(':') + 1] + '**' + item[item.index(':') + 1:]
         text += '* ' + item + '\n'
     return text
 
@@ -105,9 +107,11 @@ class Repo():
         if commit_dict['type'] not in types:
             commit_dict['type'] = None
             commit_dict['scope'] = None
-            commit_dict['description'] = message[0]
-        else:
-            commit_dict['description'] = message[0][message[0].index(': ')+2:]
+            commit_dict['description'] = message[0] + ' (' + 'test' + ')'
+        elif commit_dict['scope']:
+            commit_dict['description'] = commit_dict['scope'] + ': ' + message[0][message[0].index(': ')+2:] + ' (' + 'test' + ')'
+        else: 
+            commit_dict['description'] = message[0][message[0].index(': ')+2:] + ' (' + 'test' + ')'
         
         commit_dict['message'] = message[0]
 
