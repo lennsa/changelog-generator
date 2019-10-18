@@ -10,6 +10,13 @@ def pop_list(pop_list):
 
 def changelog_entry(releace, version):
 
+    text = '## ' + version + '\n' + spacer[1] + '\n'
+    text += changelog_entry_body(releace)
+    text += '\n'
+    return text
+
+def changelog_entry_body(releace):
+    text = ''
     commit_dict = {}
     for commit in releace:
         if commit['type'] in commit_dict:
@@ -17,24 +24,28 @@ def changelog_entry(releace, version):
         else:
             commit_dict[commit['type']] = [commit]
                 
-    text = version + '\n' + spacer[1] + '\n'
     for commit_type, commits in commit_dict.items():
         if commit_type != None:
-            text = text + commit_type + ':\n'
-            for commit in commits:
-                text = text + '* ' + commit['description'] + '\n'
-            text = text + '\n'
+
+            text += changelog_block(commit_type, [commit['description'] for commit in commits])
+            text += '\n'
+
     for commit_type, commits in commit_dict.items():
         if commit_type == None:
-            text = text + 'Other:\n'
-            for commit in commits:
-                text = text + '* ' + commit['description'] + '\n'
-            text = text + '\n'
-    text = text + '\n'
+
+            text += changelog_block('Other', [commit['description'] for commit in commits])
+            text += '\n'
+
+    return text
+
+def changelog_block(title, items):
+    text = title + ':\n'
+    for item in items:
+        text += '* ' + item + '\n'
     return text
 
 def changelog_header(name):
-    return spacer[2] + '\t' + name + ' Changelog\n' + spacer[2] + '\n\n'
+    return '# ' + name + ' Changelog\n' + spacer[1] + '\n'
 
 def changelog_footer(text):
     return text + '\n'
@@ -159,7 +170,7 @@ class Repo():
             for commit in commits:
                 releace.append(commit)
                 if commit['binsha'] == tag['commit']:
-                    # print(f"tag: {tag['name']} --> commits: {len(releace)}")
+                    print(f"tag: {tag['name']} --> commits: {len(releace)}")
 
                     releaces.append(releace)
                     versions.append(tag['name'])
@@ -167,13 +178,14 @@ class Repo():
                     i -= 1
                     break
 
+        if len(releace):
+            footer = changelog_block(f'{len(releace)} unallocable commits in {i} further version tags', [commit['message'] for commit in releace])
+        
         releaces.reverse()
         versions.reverse()
         for index, releace in enumerate(releaces):
             text += changelog_entry(releace, version=versions[index])
 
-        if len(releace):
-            footer = f'{len(releace)} unallocable commits in {i} further version tags'
         text += changelog_footer(footer)
 
         return text

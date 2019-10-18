@@ -16,7 +16,7 @@ def generate(repo_path):
     # for tag in tags:
     #     print(tag)
     text = repo.generate_changelog()
-    with open('changelog.txt', 'w') as out_file:
+    with open('changelog.md', 'w') as out_file:
         out_file.write(text)
 
 @generator.command()

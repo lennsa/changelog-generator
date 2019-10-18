@@ -1,9 +1,7 @@
------------------------------------------------------------
-	mailbox Changelog
------------------------------------------------------------
+# mailbox Changelog
+================
 
-
-v0.5.1
+## v0.5.1
 ================
 
 chore:
@@ -16,7 +14,7 @@ Other:
 * docs: Add GitHub Actions badge
 
 
-v0.5.0
+## v0.5.0
 ================
 
 fix:
@@ -30,7 +28,7 @@ feat:
 * Add data flag to build command
 
 
-v0.4.2
+## v0.4.2
 ================
 
 fix:
@@ -40,7 +38,7 @@ chore:
 * 0.4.2
 
 
-v0.4.1
+## v0.4.1
 ================
 
 chore:
@@ -50,7 +48,7 @@ chore:
 * 0.4.1
 
 
-v0.4.0
+## v0.4.0
 ================
 
 chore:
@@ -62,7 +60,7 @@ Other:
 * docs: Replace global installation with `npx` command
 
 
-v0.3.4
+## v0.3.4
 ================
 
 chore:
@@ -71,7 +69,7 @@ chore:
 * 0.3.4
 
 
-v0.3.3
+## v0.3.3
 ================
 
 fix:
@@ -82,7 +80,7 @@ chore:
 * 0.3.3
 
 
-v0.3.2
+## v0.3.2
 ================
 
 chore:
@@ -92,7 +90,7 @@ chore:
 * 0.3.2
 
 
-v0.3.1
+## v0.3.1
 ================
 
 chore:
@@ -103,7 +101,7 @@ fix:
 * Make attachments folder optional
 
 
-v0.3.0
+## v0.3.0
 ================
 
 chore:
@@ -122,7 +120,7 @@ Other:
 * docs: Replace old test readme with new data
 
 
-v0.2.2
+## v0.2.2
 ================
 
 fix:
@@ -138,7 +136,7 @@ Other:
 * docs: Expand documentation to cover the whole project
 
 
-v0.2.1
+## v0.2.1
 ================
 
 fix:
@@ -148,7 +146,7 @@ chore:
 * 0.2.1
 
 
-v0.2.0
+## v0.2.0
 ================
 
 fix:
@@ -163,7 +161,7 @@ chore:
 * 0.2.0
 
 
-v0.1.0
+## v0.1.0
 ================
 
 feat:
@@ -173,4 +171,4 @@ chore:
 * 0.1.0
 
 
-2 unallocable commits in 0 further version tags
+54 commits in 14 version tags
