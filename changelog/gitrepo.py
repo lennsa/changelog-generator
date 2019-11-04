@@ -59,8 +59,7 @@ class Repo():
         
         commit_dict['message'] = message[0]
 
-        code = codecs.encode(commit.binsha, 'hex').decode('utf-8')
-        commit_dict['link'] = f'([{code[:7]}](commit/{code}))'
+        commit_dict['link'] = codecs.encode(commit.binsha, 'hex').decode('utf-8')
 
         pos = 0
         for line in message[1:]:
