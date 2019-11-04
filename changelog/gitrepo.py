@@ -2,6 +2,7 @@ import codecs
 import git
 import generate
 import utils
+import time
 
 class Repo():
 
@@ -92,6 +93,8 @@ class Repo():
                 commit = commit.object
             
             tag_dict['commit'] = commit.binsha
+            date = time.gmtime(commit.committed_date)
+            tag_dict['date'] = f'{date.tm_mday}.{date.tm_mon}.{date.tm_year}'
 
             tags_list.append(tag_dict)
 
@@ -124,6 +127,7 @@ class Repo():
         releace = []
         releaces = []
         versions = []
+        dates = []
         i = 0
         
         for tag in tags:
@@ -135,6 +139,7 @@ class Repo():
 
                     releaces.append(releace)
                     versions.append(tag['name'])
+                    dates.append(tag['date'])
                     releace = []
                     i -= 1
                     break
@@ -144,8 +149,9 @@ class Repo():
         
         releaces.reverse()
         versions.reverse()
+        dates.reverse()
         for index, releace in enumerate(releaces):
-            text += generate.changelog_entry(releace, version=versions[index])
+            text += generate.changelog_entry(releace, version=versions[index], date=dates[index])
 
         text += generate.changelog_footer(footer)
 

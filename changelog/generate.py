@@ -1,9 +1,9 @@
 import utils
 
 
-def changelog_entry(releace, version):
+def changelog_entry(releace, version, date):
 
-    text = '## ' + version + '\n\n'
+    text = '## ' + version + ' (' + date + ')\n\n'
     text += changelog_entry_body(releace)
     text += '\n'
     return text
