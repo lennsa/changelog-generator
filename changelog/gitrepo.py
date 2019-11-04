@@ -1,3 +1,4 @@
+import codecs
 import git
 import generate
 import utils
@@ -55,7 +56,8 @@ class Repo():
         
         commit_dict['message'] = message[0]
 
-        commit_dict['link'] = 'edoekdoekokfoekoffkoef'
+        commit_dict['link'] = codecs.encode(commit.binsha, 'hex').decode('utf-8')
+        print(commit_dict['link'])
 
         pos = 0
         for line in message[1:]:
