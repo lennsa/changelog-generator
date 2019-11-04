@@ -22,7 +22,7 @@ def changelog_entry_body(releace):
 
             text += changelog_block(
                 commit_type, 
-                [commit['description'] + ' ' + commit['link'] for commit in commits] # body
+                [commit['description'] + ' (' + commit['link'] + ')' for commit in commits] # body
             )
             text += '\n'
 

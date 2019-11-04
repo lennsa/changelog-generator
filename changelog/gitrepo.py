@@ -8,8 +8,6 @@ class Repo():
 
     def __init__(self, repo_path):
         self.repo = git.Repo(repo_path)
-        self.url = 'höhö'
-        print(self.url)
 
     def get_commits(self):
 
