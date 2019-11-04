@@ -8,6 +8,8 @@ class Repo():
 
     def __init__(self, repo_path):
         self.repo = git.Repo(repo_path)
+        self.url = 'höhö'
+        print(self.url)
 
     def get_commits(self):
 
@@ -57,7 +59,8 @@ class Repo():
         
         commit_dict['message'] = message[0]
 
-        commit_dict['link'] = codecs.encode(commit.binsha, 'hex').decode('utf-8')[:7]
+        code = codecs.encode(commit.binsha, 'hex').decode('utf-8')
+        commit_dict['link'] = f'([{code[:7]}]({self.url}/commit/{code}))'
 
         pos = 0
         for line in message[1:]:
