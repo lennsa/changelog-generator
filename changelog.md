@@ -1,5 +1,11 @@
 # changelog-generator Changelog
 
+## v0.0.2 (4.11.2019)
+
+### docs
+* readme (775192dc02f2bd3843488a382552cef2df73c5fc)
+
+
 ## v0.0.1 (4.11.2019)
 
 ### feat
@@ -12,4 +18,4 @@
 * new structure (cdcdc169f926fd8a2490ba2c8f0380453bda8fa1)
 
 
-28 commits in 1 version tags
+31 commits in 2 version tags
