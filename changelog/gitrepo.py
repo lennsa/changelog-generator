@@ -96,23 +96,20 @@ class Repo():
 
             tags_list.append(tag_dict)
 
-            # for tag in tags_list:
-            #     print(tag['name'])
-
         return tags_list
 
-    def generate_changelog(self):
+    def generate_changelog(self, types, bodytags):
 
         text, releaces, versions, dates, footer = self.get_changelog()
 
         for index, releace in enumerate(releaces):
-            text += generate.changelog_entry(releace, version=versions[index], date=dates[index])
+            text += generate.changelog_entry(releace, version=versions[index], date=dates[index], types=types, bodytags=bodytags)
 
         text += generate.changelog_footer(footer)
 
         return text
 
-    def add_changelog(self, old_text):
+    def add_changelog(self, old_text, types, bodytags):
 
         text, releaces, versions, dates, footer = self.get_changelog()
 
@@ -139,7 +136,7 @@ class Repo():
         print('start at commit:',latest_commit, 'skip commits:', old_commits, 'skip versions:', old_versions, 'found entrypoint in changelog:', releaces[-old_versions][-1]['binsha'] == latest_commit)
 
         for index, releace in enumerate(releaces[:-old_versions]):
-            text += generate.changelog_entry(releace, version=versions[index], date=dates[index])
+            text += generate.changelog_entry(releace, version=versions[index], date=dates[index], types=types, bodytags=bodytags)
 
     
         for index, line in enumerate(old_changelog):
@@ -158,7 +155,7 @@ class Repo():
         root = self.repo.git.rev_parse("--show-toplevel")
         name = root
         while '/' in name:
-            name = name[name.index('/')+1:]
+            name = name[name.index('/') + 1:]
         text = generate.changelog_header(name)
 
         if not len(tags): 
