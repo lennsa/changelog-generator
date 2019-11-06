@@ -29,7 +29,7 @@ class Repo():
 
         commit_dict = {}
 
-        commit_dict['binsha'] = commit.binsha
+        commit_dict['binsha'] = codecs.encode(commit.binsha, 'hex').decode('utf-8')
 
         commit_dict['type'] = None
         commit_dict['scope'] = None
@@ -56,8 +56,6 @@ class Repo():
             commit_dict['description'] = message[0][message[0].index(': ')+2:]
         
         commit_dict['message'] = message[0]
-
-        commit_dict['link'] = codecs.encode(commit.binsha, 'hex').decode('utf-8')
 
         pos = 0
         for line in message[1:]:
@@ -92,7 +90,7 @@ class Repo():
             while commit.type != 'commit':
                 commit = commit.object
             
-            tag_dict['commit'] = commit.binsha
+            tag_dict['commit'] = codecs.encode(commit.binsha, 'hex').decode('utf-8')
             date = time.gmtime(commit.committed_date)
             tag_dict['date'] = f'{date.tm_mday}.{date.tm_mon}.{date.tm_year}'
 
@@ -105,6 +103,55 @@ class Repo():
 
     def generate_changelog(self):
 
+        text, releaces, versions, dates, footer = self.get_changelog()
+
+        for index, releace in enumerate(releaces):
+            text += generate.changelog_entry(releace, version=versions[index], date=dates[index])
+
+        text += generate.changelog_footer(footer)
+
+        return text
+
+    def add_changelog(self, old_text):
+
+        text, releaces, versions, dates, footer = self.get_changelog()
+
+        old_changelog = old_text.split('\n')
+
+        old_footer = None
+        for line in old_changelog:
+            if line.startswith('::>'):
+                old_footer = line.split(' ') # old_footer is the last line with "::>"
+                old_changelog.remove(line)
+
+        if not old_footer:
+            print('no readable footer')
+            return
+
+        latest_commit = old_footer[-1]
+        old_commits = int(old_footer[old_footer.index('commits') - 1])
+        old_versions = int(old_footer[old_footer.index('version') - 1])
+
+        if not releaces[-old_versions][-1]['binsha'] == latest_commit:
+            print('unable to read old changelog')
+            return
+        
+        print('start at commit:',latest_commit, 'skip commits:', old_commits, 'skip versions:', old_versions, 'found entrypoint in changelog:', releaces[-old_versions][-1]['binsha'] == latest_commit)
+
+        for index, releace in enumerate(releaces[:-old_versions]):
+            text += generate.changelog_entry(releace, version=versions[index], date=dates[index])
+
+    
+        for index, line in enumerate(old_changelog):
+            if line.startswith('## '):
+                text += '\n'.join(old_changelog[index:])
+                break
+
+        text += generate.changelog_footer(footer)
+
+        return text
+
+    def get_changelog(self):
         tags = self.get_tags()
         commits = self.get_commits()
 
@@ -117,9 +164,7 @@ class Repo():
         if not len(tags): 
             footer = 'No versions structure available in this repo'
         else:
-            footer = f'{len(commits)} commits in {len(tags)} version tags'
-        # print('tags:', len(tags))
-        # print('commits:',len(commits))
+            footer = f"::> {len(commits)} commits in {len(tags)} version tags. Latest version: {tags[-1]['commit']}"
 
         commits.reverse()
         commits = utils.pop_list(commits)
@@ -144,15 +189,8 @@ class Repo():
                     i -= 1
                     break
 
-        if len(releace):
-            footer = generate.changelog_block(f'{len(releace)} unallocable commits in {i} further version tags', [commit['message'] for commit in releace])
-        
         releaces.reverse()
         versions.reverse()
         dates.reverse()
-        for index, releace in enumerate(releaces):
-            text += generate.changelog_entry(releace, version=versions[index], date=dates[index])
-
-        text += generate.changelog_footer(footer)
-
-        return text
+        
+        return text, releaces, versions, dates, footer
