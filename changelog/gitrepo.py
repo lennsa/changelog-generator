@@ -9,7 +9,7 @@ class Repo():
     def __init__(self, repo_path):
         self.repo = git.Repo(repo_path)
 
-    def get_commits(self):
+    def get_commits(self, types):
 
         commits = list(self.repo.iter_commits("master"))
 
@@ -17,11 +17,11 @@ class Repo():
 
         for commit in commits:
 
-            commits_list.append(self.commit_dict(commit))
+            commits_list.append(self.commit_dict(commit, types))
         
         return commits_list
 
-    def commit_dict(self, commit):
+    def commit_dict(self, commit, types):
         
         message = commit.message
 
@@ -46,14 +46,14 @@ class Repo():
         else:
             commit_dict['type'] = commit_dict['type'][:commit_dict['type'].index('(')]
         
-        if commit_dict['type'] not in utils.types:
+        if commit_dict['type'] not in types:
             commit_dict['type'] = None
             commit_dict['scope'] = None
-            commit_dict['description'] = message[0]
+            commit_dict['description'] = [message[0]]
         elif commit_dict['scope']:
-            commit_dict['description'] = commit_dict['scope'] + ': ' + message[0][message[0].index(': ')+2:]
+            commit_dict['description'] = [commit_dict['scope'] + ': ' + message[0][message[0].index(': ')+2:]]
         else: 
-            commit_dict['description'] = message[0][message[0].index(': ')+2:]
+            commit_dict['description'] = [message[0][message[0].index(': ')+2:]]
         
         commit_dict['message'] = message[0]
 
@@ -61,16 +61,18 @@ class Repo():
         for line in message[1:]:
             if not line:
                 pos += 1
+            elif pos == 0:
+                commit_dict['description'].append(line)
             elif pos == 1:
                 if 'body' in commit_dict.keys(): 
-                    commit_dict['body'] += '\n' + line
+                    commit_dict['body'].append(line)
                 else:
-                    commit_dict['body'] = line
+                    commit_dict['body'] = [line]
             elif pos == 2:
                 if 'footer' in commit_dict.keys():
-                    commit_dict['footer'] += '\n' + line
+                    commit_dict['footer'].append(line)
                 else:
-                    commit_dict['footer'] = line
+                    commit_dict['footer'] = [line]
                 
         return commit_dict
 
@@ -100,10 +102,10 @@ class Repo():
 
     def generate_changelog(self, types, bodytags):
 
-        text, releaces, versions, dates, footer = self.get_changelog()
+        text, releaces, versions, dates, footer = self.get_changelog(types)
 
         for index, releace in enumerate(releaces):
-            text += generate.changelog_entry(releace, version=versions[index], date=dates[index], types=types, bodytags=bodytags)
+            text += generate.changelog_entry(releace, version=versions[index], date=dates[index], bodytags=bodytags)
 
         text += generate.changelog_footer(footer)
 
@@ -111,7 +113,7 @@ class Repo():
 
     def add_changelog(self, old_text, types, bodytags):
 
-        text, releaces, versions, dates, footer = self.get_changelog()
+        text, releaces, versions, dates, footer = self.get_changelog(types)
 
         old_changelog = old_text.split('\n')
 
@@ -136,7 +138,7 @@ class Repo():
         print('start at commit:',latest_commit, 'skip commits:', old_commits, 'skip versions:', old_versions, 'found entrypoint in changelog:', releaces[-old_versions][-1]['binsha'] == latest_commit)
 
         for index, releace in enumerate(releaces[:-old_versions]):
-            text += generate.changelog_entry(releace, version=versions[index], date=dates[index], types=types, bodytags=bodytags)
+            text += generate.changelog_entry(releace, version=versions[index], date=dates[index], bodytags=bodytags)
 
     
         for index, line in enumerate(old_changelog):
@@ -148,9 +150,9 @@ class Repo():
 
         return text
 
-    def get_changelog(self):
+    def get_changelog(self, types):
         tags = self.get_tags()
-        commits = self.get_commits()
+        commits = self.get_commits(types)
 
         root = self.repo.git.rev_parse("--show-toplevel")
         name = root
