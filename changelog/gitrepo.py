@@ -92,7 +92,7 @@ class Repo():
             
             tag_dict['commit'] = codecs.encode(commit.binsha, 'hex').decode('utf-8')
             date = time.gmtime(commit.committed_date)
-            tag_dict['date'] = f'{date.tm_mday}.{date.tm_mon}.{date.tm_year}'
+            tag_dict['date'] = f'{date.tm_year}-{date.tm_mon}-{date.tm_mday}'
 
             tags_list.append(tag_dict)
 
