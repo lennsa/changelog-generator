@@ -1,5 +1,15 @@
 # changelog-generator Changelog
 
+## v0.1.2 (2019-11-6)
+
+### fix
+* multiline messages (c6ec67f4ddebbe358a1455f4f2540901f52f2c07)
+* **multiline message:** now shown propaly i one line (f98b53054117d6e819e0717b18e9b90790be6264)
+
+### docs
+* new changelog (b8db051ac908678dc1fb908e13766463b28798ef)
+
+
 ## v0.1.1 (2019-11-6)
 
 ### fix
@@ -36,4 +46,4 @@
 * new structure (cdcdc169f926fd8a2490ba2c8f0380453bda8fa1)
 
 
-::> 41 commits in 4 version tags. Latest version: 1bcf9a04a15644f3ce8493ef9fa320637b61f795
+::> 42 commits in 5 version tags. Latest version: f98b53054117d6e819e0717b18e9b90790be6264
