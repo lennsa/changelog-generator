@@ -1,5 +1,14 @@
 # changelog-generator Changelog
 
+## v0.1.1 (2019-11-6)
+
+### fix
+* **date:** dates are now in yyy-mm-dd format (b0fd272b2ee87c9081971a7d0c9ae7eb8ae02f28)
+
+### feat
+* **commands:** support to define (2c09955bd34c72ef42b87b59022ef89d6575b09c)
+
+
 ## v0.1.0 (6.11.2019)
 
 ### feat
@@ -13,7 +22,6 @@
 
 ### docs
 * readme (775192dc02f2bd3843488a382552cef2df73c5fc)
-
 * extra comment that will stay by using the add command
 
 
@@ -29,4 +37,4 @@
 * new structure (cdcdc169f926fd8a2490ba2c8f0380453bda8fa1)
 
 
-::> 37 commits in 3 version tags. Latest version: e4698fe913a1124cabfa11db9cac59926bbcb20c
+::> 38 commits in 4 version tags. Latest version: 1bcf9a04a15644f3ce8493ef9fa320637b61f795
