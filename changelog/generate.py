@@ -20,7 +20,7 @@ def changelog_entry_body(releace, bodytags):
 
             text += changelog_block(
                 commit_type, 
-                ["\n  ".join(commit['description']) + ' (' + commit['binsha'] + ')' for commit in commits] # body
+                [commit['description'] + ' (' + commit['binsha'] + ')' for commit in commits] # body
             )
             text += '\n'
 
@@ -52,15 +52,13 @@ def get_relevant_texts(commits, bodytags):
     texts = []
     for commit in commits:
         if 'body' in commit.keys():
-            body = "\n  ".join(commit['body'])
             for bodytag in bodytags:
-                if bodytag in body:
-                    texts.append(body)
+                if bodytag in commit['body']:
+                    texts.append(commit['body'])
         
         if 'footer' in commit.keys():
-            footer = "\n  ".join(commit['footer'])
             for bodytag in bodytags:
-                if bodytag in footer:
-                    texts.append(footer)
+                if bodytag in commit['footer']:
+                    texts.append(commit['footer'])
 
     return texts

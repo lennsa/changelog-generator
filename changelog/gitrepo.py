@@ -49,11 +49,11 @@ class Repo():
         if commit_dict['type'] not in types:
             commit_dict['type'] = None
             commit_dict['scope'] = None
-            commit_dict['description'] = [message[0]]
+            commit_dict['description'] = message[0]
         elif commit_dict['scope']:
-            commit_dict['description'] = [commit_dict['scope'] + ': ' + message[0][message[0].index(': ')+2:]]
+            commit_dict['description'] = commit_dict['scope'] + ': ' + message[0][message[0].index(': ')+2:]
         else: 
-            commit_dict['description'] = [message[0][message[0].index(': ')+2:]]
+            commit_dict['description'] = message[0][message[0].index(': ')+2:]
         
         commit_dict['message'] = message[0]
 
@@ -62,17 +62,17 @@ class Repo():
             if not line:
                 pos += 1
             elif pos == 0:
-                commit_dict['description'].append(line)
+                commit_dict['description'] += ' ' + line
             elif pos == 1:
                 if 'body' in commit_dict.keys(): 
-                    commit_dict['body'].append(line)
+                    commit_dict['body'] += ' ' + line
                 else:
-                    commit_dict['body'] = [line]
+                    commit_dict['body'] = line
             elif pos == 2:
                 if 'footer' in commit_dict.keys():
-                    commit_dict['footer'].append(line)
+                    commit_dict['footer'] += ' ' + line
                 else:
-                    commit_dict['footer'] = [line]
+                    commit_dict['footer'] = line
                 
         return commit_dict
 
