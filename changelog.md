@@ -1,9 +1,20 @@
 # changelog-generator Changelog
 
+## v0.1.0 (6.11.2019)
+
+### feat
+* add command (1b766a23f5c4934d70c69cc032fbd8fb7804a1ed)
+
+### docs
+* updated readme (e4698fe913a1124cabfa11db9cac59926bbcb20c)
+
+
 ## v0.0.2 (4.11.2019)
 
 ### docs
 * readme (775192dc02f2bd3843488a382552cef2df73c5fc)
+
+* extra comment that will stay by using the add command
 
 
 ## v0.0.1 (4.11.2019)
@@ -18,4 +29,4 @@
 * new structure (cdcdc169f926fd8a2490ba2c8f0380453bda8fa1)
 
 
-::> 33 commits in 2 version tags. Latest version: 775192dc02f2bd3843488a382552cef2df73c5fc
+::> 34 commits in 3 version tags. Latest version: e4698fe913a1124cabfa11db9cac59926bbcb20c
