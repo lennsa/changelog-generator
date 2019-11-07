@@ -1,5 +1,6 @@
 # changelog-generator Changelog
 
+
 ## v0.1.2 (2019-11-6)
 
 ### fix
@@ -46,4 +47,4 @@
 * new structure (cdcdc169f926fd8a2490ba2c8f0380453bda8fa1)
 
 
-::> 42 commits in 5 version tags. Latest version: f98b53054117d6e819e0717b18e9b90790be6264
+::> 43 commits in 5 version tags. Latest version: f98b53054117d6e819e0717b18e9b90790be6264

@@ -8,6 +8,10 @@ class Repo():
 
     def __init__(self, repo_path):
         self.repo = git.Repo(repo_path)
+        root = self.repo.git.rev_parse("--show-toplevel")
+        self.name = root
+        while '/' in self.name:
+            self.name = self.name[self.name.index('/') + 1:]
 
     def get_commits(self, types):
 
@@ -102,7 +106,9 @@ class Repo():
 
     def generate_changelog(self, types, bodytags):
 
-        text, releaces, versions, dates, footer = self.get_changelog(types)
+        text = generate.changelog_header(self.name)
+
+        releaces, versions, dates, footer = self.get_changelog(types)
 
         for index, releace in enumerate(releaces):
             text += generate.changelog_entry(releace, version=versions[index], date=dates[index], bodytags=bodytags)
@@ -113,7 +119,9 @@ class Repo():
 
     def add_changelog(self, old_text, types, bodytags):
 
-        text, releaces, versions, dates, footer = self.get_changelog(types)
+        text = generate.changelog_header(self.name)
+
+        releaces, versions, dates, footer = self.get_changelog(types)
 
         old_changelog = old_text.split('\n')
 
@@ -154,14 +162,8 @@ class Repo():
         tags = self.get_tags()
         commits = self.get_commits(types)
 
-        root = self.repo.git.rev_parse("--show-toplevel")
-        name = root
-        while '/' in name:
-            name = name[name.index('/') + 1:]
-        text = generate.changelog_header(name)
-
         if not len(tags): 
-            footer = 'No versions structure available in this repo'
+            footer = "No versions structure available in this repo"
         else:
             footer = f"::> {len(commits)} commits in {len(tags)} version tags. Latest version: {tags[-1]['commit']}"
 
@@ -172,12 +174,12 @@ class Repo():
         releaces = []
         versions = []
         dates = []
-        i = 0
         
         for tag in tags:
-            i += 1
             for commit in commits:
+
                 releace.append(commit)
+                
                 if commit['binsha'] == tag['commit']:
                     print(f"tag: {tag['name']} --> commits: {len(releace)}")
 
@@ -185,11 +187,10 @@ class Repo():
                     versions.append(tag['name'])
                     dates.append(tag['date'])
                     releace = []
-                    i -= 1
                     break
 
         releaces.reverse()
         versions.reverse()
         dates.reverse()
         
-        return text, releaces, versions, dates, footer
+        return releaces, versions, dates, footer

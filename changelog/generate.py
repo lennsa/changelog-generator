@@ -1,12 +1,13 @@
 
 def changelog_entry(releace, version, date, bodytags):
 
-    text = '## ' + version + ' (' + date + ')\n\n'
+    text = f"## { version } ({ date })\n\n"
     text += changelog_entry_body(releace, bodytags)
     text += '\n'
     return text
 
 def changelog_entry_body(releace, bodytags):
+
     text = ''
     commit_dict = {}
     for commit in releace:
@@ -20,7 +21,7 @@ def changelog_entry_body(releace, bodytags):
 
             text += changelog_block(
                 commit_type, 
-                [commit['description'] + ' (' + commit['binsha'] + ')' for commit in commits] # body
+                [f"{ commit['description'] } ({ commit['binsha'] })" for commit in commits] # body
             )
             text += '\n'
 
@@ -33,32 +34,38 @@ def changelog_entry_body(releace, bodytags):
     return text
 
 def changelog_block(title, items):
+
     text = ''
     if title:
-        text += '### ' + title + '\n'
+        text += f"### { title }\n"
     for item in items:
         if ':' in item[:18]:
-            item = '**' + item[:item.index(':') + 1] + '**' + item[item.index(':') + 1:]
-        text += '* ' + item + '\n'
+            item = f"**{ item[:item.index(':') + 1] }**{ item[item.index(':') + 1:] }"
+        text += f"* { item }\n"
     return text
 
 def changelog_header(name):
-    return '# ' + name + ' Changelog\n\n'
+
+    return f"# { name } Changelog\n\n\n"
 
 def changelog_footer(text):
+
     return text + '\n'
 
 def get_relevant_texts(commits, bodytags):
+
     texts = []
     for commit in commits:
         if 'body' in commit.keys():
             for bodytag in bodytags:
                 if bodytag in commit['body']:
+
                     texts.append(commit['body'])
         
         if 'footer' in commit.keys():
             for bodytag in bodytags:
                 if bodytag in commit['footer']:
+
                     texts.append(commit['footer'])
 
     return texts
