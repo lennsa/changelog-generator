@@ -19,9 +19,7 @@ class Repo():
         commits = list(self.repo.iter_commits("master"))
 
         commits_list = []
-
         for commit in commits:
-
             commits_list.append(self.commit_dict(commit, types))
         
         return commits_list
