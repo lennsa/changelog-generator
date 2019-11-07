@@ -8,7 +8,7 @@ class Repo():
 
     def __init__(self, repo_path):
         self.repo = git.Repo(repo_path)
-        
+
         root = self.repo.git.rev_parse("--show-toplevel")
         self.name = root
         while '/' in self.name:
@@ -144,14 +144,14 @@ class Repo():
             print('unable to read old changelog')
             return
         
-        print('start at commit:',latest_commit, 'skip commits:', old_commits, 'skip versions:', old_versions, 'found entrypoint in changelog:', releaces[-old_versions][-1]['binsha'] == latest_commit)
+        print('start at commit:', latest_commit, 'skip commits:', old_commits, 'skip versions:', old_versions, 'found entrypoint in changelog:', releaces[-old_versions][-1]['binsha'] == latest_commit)
 
         for index, releace in enumerate(releaces[:-old_versions]):
             text += generate.changelog_entry(releace, version=versions[index], date=dates[index], bodytags=bodytags)
 
     
         for index, line in enumerate(old_changelog):
-            if line.startswith('## '):
+            if line and not line.startswith('# '):
                 text += '\n'.join(old_changelog[index:])
                 break
 
