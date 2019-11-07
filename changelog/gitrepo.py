@@ -30,17 +30,22 @@ class Repo():
         
         message = commit.message
 
-        message = message.split('\n')
+        message = message.split('\n\n')
+        for index, section in enumerate(message):
+            if section.endswith('\n'):
+                section = section [:-1] 
+            message[index] = section.replace('\n', ' ')
 
         commit_dict = {}
 
-        commit_dict['binsha'] = codecs.encode(commit.binsha, 'hex').decode('utf-8')
+        commit_dict['message'] = message[0]
 
         commit_dict['type'] = None
         commit_dict['scope'] = None
 
         try:
             commit_dict['type'] = message[0][:message[0].index(': ')]
+            commit_dict['description'] = message[0][message[0].index(': ')+2:]
         except ValueError:
             commit_dict['type'] = None
 
@@ -50,35 +55,20 @@ class Repo():
             commit_dict['scope'] = None
         else:
             commit_dict['type'] = commit_dict['type'][:commit_dict['type'].index('(')]
+            commit_dict['description'] = commit_dict['scope'] + ': ' + message[0][message[0].index(': ')+2:]
         
         if commit_dict['type'] not in types:
             commit_dict['type'] = None
             commit_dict['scope'] = None
             commit_dict['description'] = message[0]
-        elif commit_dict['scope']:
-            commit_dict['description'] = commit_dict['scope'] + ': ' + message[0][message[0].index(': ')+2:]
-        else: 
-            commit_dict['description'] = message[0][message[0].index(': ')+2:]
-        
-        commit_dict['message'] = message[0]
 
-        pos = 0
-        for line in message[1:]:
-            if not line:
-                pos += 1
-            elif pos == 0:
-                commit_dict['description'] += ' ' + line
-            elif pos == 1:
-                if 'body' in commit_dict.keys(): 
-                    commit_dict['body'] += ' ' + line
-                else:
-                    commit_dict['body'] = line
-            elif pos == 2:
-                if 'footer' in commit_dict.keys():
-                    commit_dict['footer'] += ' ' + line
-                else:
-                    commit_dict['footer'] = line
-                
+        if len(message) > 1:
+            commit_dict['body'] = message[1]
+        if len(message) > 2:
+            commit_dict['footer'] = message[2]
+
+        commit_dict['binsha'] = codecs.encode(commit.binsha, 'hex').decode('utf-8')
+
         return commit_dict
 
     def get_tags(self):
