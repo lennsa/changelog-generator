@@ -17,6 +17,7 @@ def generate(repopath, types, bodytags):
     if text:
         with open('changelog.md', 'w') as out_file:
             out_file.write(text)
+        print('Done!')
 
 @generator.command()
 @click.argument('repopath')
@@ -32,6 +33,7 @@ def add(repopath, types, bodytags):
     if text:
         with open('changelog.md', 'w') as out_file:
             out_file.write(text)
+        print('Done!')
 
 @generator.command()
 @click.argument('repopath')
