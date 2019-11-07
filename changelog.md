@@ -1,6 +1,20 @@
 # changelog-generator Changelog
 
 
+## v0.1.3 (2019-11-7)
+
+### refactor
+* better readable code (still not clean) (1cabd73f537e1e86a33cd49e3aff5fee8b81b30d)
+* error handling and more edgecase support (f860b106bdd4de10548e36e6af2ecd370a8a0cc4)
+* new way of creaing commit object (437c7efc3785871c5099c4f0b84e3456b5b99015)
+
+### feat
+* use 'printout' to only print changelog. This won't touch the changelog file (21d72d46f16ca8e03451f8c2a321c6fac21b38aa)
+
+### docs
+* new changelog (81a7ea093a69d3ed61c6340ecabf7c43b657850c)
+
+
 ## v0.1.2 (2019-11-6)
 
 ### fix
@@ -47,4 +61,4 @@
 * new structure (cdcdc169f926fd8a2490ba2c8f0380453bda8fa1)
 
 
-::> 49 commits in 5 version tags. Latest version: f98b53054117d6e819e0717b18e9b90790be6264
+::> 50 commits in 6 version tags. Latest version: 81a7ea093a69d3ed61c6340ecabf7c43b657850c
