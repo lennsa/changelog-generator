@@ -8,6 +8,7 @@ class Repo():
 
     def __init__(self, repo_path):
         self.repo = git.Repo(repo_path)
+        
         root = self.repo.git.rev_parse("--show-toplevel")
         self.name = root
         while '/' in self.name:
