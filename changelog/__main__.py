@@ -14,8 +14,9 @@ def generate(repopath, types, bodytags):
     types = types.split(',')
     bodytags = bodytags.split(',')
     text = repo.generate_changelog(types, bodytags)
-    with open('changelog.md', 'w') as out_file:
-        out_file.write(text)
+    if text:
+        with open('changelog.md', 'w') as out_file:
+            out_file.write(text)
 
 @generator.command()
 @click.argument('repopath')

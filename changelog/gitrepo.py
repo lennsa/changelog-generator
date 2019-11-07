@@ -111,6 +111,10 @@ class Repo():
 
         releaces, versions, dates, footer = self.get_changelog(types)
 
+        if len(releaces) == 0:
+            print("No versions structure available in this repo")
+            return
+
         for index, releace in enumerate(releaces):
             text += generate.changelog_entry(releace, version=versions[index], date=dates[index], bodytags=bodytags)
 
@@ -123,6 +127,10 @@ class Repo():
         text = generate.changelog_header(self.name)
 
         releaces, versions, dates, footer = self.get_changelog(types)
+
+        if len(releaces) == 0:
+            print("No versions structure available in this repo")
+            return
 
         old_changelog = old_text.split('\n')
 
@@ -139,12 +147,12 @@ class Repo():
         latest_commit = old_footer[-1]
         old_commits = int(old_footer[old_footer.index('commits') - 1])
         old_versions = int(old_footer[old_footer.index('version') - 1])
-
-        if not releaces[-old_versions][-1]['binsha'] == latest_commit:
-            print('unable to read old changelog')
-            return
         
         print('start at commit:', latest_commit, 'skip commits:', old_commits, 'skip versions:', old_versions, 'found entrypoint in changelog:', releaces[-old_versions][-1]['binsha'] == latest_commit)
+
+        if old_versions > len(releaces) or not releaces[-old_versions][-1]['binsha'] == latest_commit:
+            print('unable to read old changelog')
+            return
 
         for index, releace in enumerate(releaces[:-old_versions]):
             text += generate.changelog_entry(releace, version=versions[index], date=dates[index], bodytags=bodytags)
@@ -163,10 +171,10 @@ class Repo():
         tags = self.get_tags()
         commits = self.get_commits(types)
 
-        if not len(tags): 
-            footer = "No versions structure available in this repo"
-        else:
+        if len(tags):
             footer = f"::> {len(commits)} commits in {len(tags)} version tags. Latest version: {tags[-1]['commit']}"
+        else:
+            footer = None
 
         commits.reverse()
         commits = utils.pop_list(commits)
