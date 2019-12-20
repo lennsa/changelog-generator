@@ -7,6 +7,11 @@ setup(
    keywords='changelog conventional commit git',
    author='Lennart Suwe',
    author_email='lennsa999@gmx.de',
-   packages=['chnangelog-generator'],
-   install_requires=['bar', 'greek'], #external packages as dependencies
+   packages=['changelog'],
+   install_requires=[
+     "Click==7.0",
+     "GitPython==3.0.3",
+     "requests==2.22.0",
+   ],
+   entry_points={"console_scripts": ["changelog = changelog.__main__:generator"]}
 )
