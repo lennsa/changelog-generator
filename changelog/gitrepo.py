@@ -119,8 +119,6 @@ class Repo():
 
     def add_changelog(self, old_text, types, bodytags):
 
-        text = header.generate_header(self.name)
-
         releaces, versions, dates, new_footer = self.get_changelog(types)
 
         if len(releaces) == 0:
@@ -129,7 +127,9 @@ class Repo():
 
         old_changelog = old_text.split('\n')
 
-        header.remove_header(old_changelog)
+        # This funktion seperates and retuns the Header Section.
+
+        text = header.remove_header(old_changelog)
 
         # If the footer is valide, the funktion returns the ammount of old versions.
         # If not, the Funktion will return False.
