@@ -1,6 +1,15 @@
 # changelog-generator Changelog
 
 
+## v0.1.4 (2020-1-3)
+
+### fix
+* updated requirements (1c20c3d6f5daecbfaaeece77764fcaff1efd998f)
+
+### refactor
+* moved contents of utils.py (2eb401560c8d1de74f1ca5fec61d0ffd6c4c6dae)
+
+
 ## v0.1.3 (2019-11-7)
 
 ### refactor
@@ -61,4 +70,4 @@
 * new structure (cdcdc169f926fd8a2490ba2c8f0380453bda8fa1)
 
 
-::> 52 commits in 6 version tags. Latest version: 81a7ea093a69d3ed61c6340ecabf7c43b657850c
+::> 58 commits in 7 version tags. Latest version: 2eb401560c8d1de74f1ca5fec61d0ffd6c4c6dae
