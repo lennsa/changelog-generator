@@ -1,8 +1,11 @@
 def verify_footer(old_changelog, releaces):
     old_footer = None
     for line in old_changelog:
+
+        # Search for footer.
+
         if line.startswith('::>'):
-            old_footer = line.split(' ') # old_footer is the last line with "::>"
+            old_footer = line.split(' ')
             old_changelog.remove(line)
 
     if not old_footer:
@@ -14,7 +17,7 @@ def verify_footer(old_changelog, releaces):
     old_versions = int(old_footer[old_footer.index('version') - 1])
     
     print(
-        'start at commit:', latest_commit, 
+        'start at commit:', latest_commit,
         '\nskip commits:', old_commits, 
         '\nskip versions:', old_versions, 
         '\nfound entrypoint in changelog:', releaces[-old_versions][-1]['binsha'] == latest_commit
@@ -27,4 +30,4 @@ def verify_footer(old_changelog, releaces):
     return old_versions
 
 def generate_footer(tags, commits):
-    return f"::> {len(commits)} commits in {len(tags)} version tags. Latest version: {tags[-1]['commit']}\n"
+    return f"::> {len(commits)} commits in {len(tags)} version tags, last considered commit: {tags[-1]['commit']}\n"

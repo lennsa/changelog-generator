@@ -70,4 +70,4 @@
 * new structure (cdcdc169f926fd8a2490ba2c8f0380453bda8fa1)
 
 
-::> 60 commits in 7 version tags. Latest version: 2eb401560c8d1de74f1ca5fec61d0ffd6c4c6dae
+::> 62 commits in 7 version tags, last considered commit: 2eb401560c8d1de74f1ca5fec61d0ffd6c4c6dae
