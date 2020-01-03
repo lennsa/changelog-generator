@@ -23,8 +23,8 @@ def verify_footer(old_changelog, releaces):
     if old_versions > len(releaces) or not releaces[-old_versions][-1]['binsha'] == latest_commit:
         print('unable to read old changelog')
         return False
-        
+
     return old_versions
 
 def generate_footer(tags, commits):
-    return f"::> {len(commits)} commits in {len(tags)} version tags. Latest version: {tags[-1]['commit']}"
+    return f"::> {len(commits)} commits in {len(tags)} version tags. Latest version: {tags[-1]['commit']}\n"

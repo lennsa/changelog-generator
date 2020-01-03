@@ -1,6 +1,7 @@
 import codecs
 import git
 import generate
+import header
 import footer
 import time
 
@@ -99,7 +100,7 @@ class Repo():
 
     def generate_changelog(self, types, bodytags):
 
-        text = generate.changelog_header(self.name)
+        text = header.generate_header(self.name)
 
         releaces, versions, dates, new_footer = self.get_changelog(types)
 
@@ -112,13 +113,13 @@ class Repo():
         for index, releace in enumerate(releaces):
             text += generate.changelog_entry(releace, version=versions[index], date=dates[index], bodytags=bodytags)
 
-        text += generate.changelog_footer(new_footer)
+        text += new_footer
 
         return text
 
     def add_changelog(self, old_text, types, bodytags):
 
-        text = generate.changelog_header(self.name)
+        text = header.generate_header(self.name)
 
         releaces, versions, dates, new_footer = self.get_changelog(types)
 
@@ -128,8 +129,11 @@ class Repo():
 
         old_changelog = old_text.split('\n')
 
+        header.remove_header(old_changelog)
+
         # If the footer is valide, the funktion returns the ammount of old versions.
         # If not, the Funktion will return False.
+        # The Footer Line gets removed
 
         old_versions = footer.verify_footer(old_changelog, releaces)
         if (old_versions):
@@ -139,16 +143,9 @@ class Repo():
             for index, releace in enumerate(releaces[:-old_versions]):
                 text += generate.changelog_entry(releace, version=versions[index], date=dates[index], bodytags=bodytags)
 
-            for index, line in enumerate(old_changelog):
-                if line and not line.startswith('# '):
+            text += '\n'.join(old_changelog)
 
-                    # Search for the first line which is not Empty and not the Title.
-                    # Append the subsequent lines to the changelog.
-
-                    text += '\n'.join(old_changelog[index:])
-                    break
-
-            text += generate.changelog_footer(new_footer)
+            text += new_footer
 
             return text
 

@@ -43,14 +43,6 @@ def changelog_block(title, items):
         text += f"* { item }\n"
     return text
 
-def changelog_header(name):
-
-    return f"# { name } Changelog\n\n\n"
-
-def changelog_footer(text):
-
-    return text + '\n'
-
 def get_relevant_texts(commits, bodytags):
 
     texts = []
