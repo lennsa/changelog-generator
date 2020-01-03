@@ -1,6 +1,7 @@
 import codecs
 import git
 import generate
+import footer
 import time
 
 def pop_list(pop_list):
@@ -100,16 +101,18 @@ class Repo():
 
         text = generate.changelog_header(self.name)
 
-        releaces, versions, dates, footer = self.get_changelog(types)
+        releaces, versions, dates, new_footer = self.get_changelog(types)
 
         if len(releaces) == 0:
             print("No versions structure available in this repo")
             return
 
+        # Render and append all releases to the changelog.
+
         for index, releace in enumerate(releaces):
             text += generate.changelog_entry(releace, version=versions[index], date=dates[index], bodytags=bodytags)
 
-        text += generate.changelog_footer(footer)
+        text += generate.changelog_footer(new_footer)
 
         return text
 
@@ -117,7 +120,7 @@ class Repo():
 
         text = generate.changelog_header(self.name)
 
-        releaces, versions, dates, footer = self.get_changelog(types)
+        releaces, versions, dates, new_footer = self.get_changelog(types)
 
         if len(releaces) == 0:
             print("No versions structure available in this repo")
@@ -125,52 +128,41 @@ class Repo():
 
         old_changelog = old_text.split('\n')
 
-        old_footer = None
-        for line in old_changelog:
-            if line.startswith('::>'):
-                old_footer = line.split(' ') # old_footer is the last line with "::>"
-                old_changelog.remove(line)
+        # If the footer is valide, the funktion returns the ammount of old versions.
+        # If not, the Funktion will return False.
 
-        if not old_footer:
-            print('no readable footer')
-            return
+        old_versions = footer.verify_footer(old_changelog, releaces)
+        if (old_versions):
 
-        latest_commit = old_footer[-1]
-        old_commits = int(old_footer[old_footer.index('commits') - 1])
-        old_versions = int(old_footer[old_footer.index('version') - 1])
-        
-        print(
-            'start at commit:', latest_commit, 
-            '\nskip commits:', old_commits, 
-            '\nskip versions:', old_versions, 
-            '\nfound entrypoint in changelog:', releaces[-old_versions][-1]['binsha'] == latest_commit
-        )
+            # Render and append all new releases to the changelog.
 
-        if old_versions > len(releaces) or not releaces[-old_versions][-1]['binsha'] == latest_commit:
-            print('unable to read old changelog')
-            return
+            for index, releace in enumerate(releaces[:-old_versions]):
+                text += generate.changelog_entry(releace, version=versions[index], date=dates[index], bodytags=bodytags)
 
-        for index, releace in enumerate(releaces[:-old_versions]):
-            text += generate.changelog_entry(releace, version=versions[index], date=dates[index], bodytags=bodytags)
+            for index, line in enumerate(old_changelog):
+                if line and not line.startswith('# '):
 
-    
-        for index, line in enumerate(old_changelog):
-            if line and not line.startswith('# '):
-                text += '\n'.join(old_changelog[index:])
-                break
+                    # Search for the first line which is not Empty and not the Title.
+                    # Append the subsequent lines to the changelog.
 
-        text += generate.changelog_footer(footer)
+                    text += '\n'.join(old_changelog[index:])
+                    break
 
-        return text
+            text += generate.changelog_footer(new_footer)
+
+            return text
+
+        else:
+            return None
 
     def get_changelog(self, types):
         tags = self.get_tags()
         commits = self.get_commits(types)
 
         if len(tags):
-            footer = f"::> {len(commits)} commits in {len(tags)} version tags. Latest version: {tags[-1]['commit']}"
+            new_footer = footer.generate_footer(tags, commits)
         else:
-            footer = None
+            new_footer = None
 
         commits.reverse()
         commits = pop_list(commits)
@@ -198,4 +190,4 @@ class Repo():
         versions.reverse()
         dates.reverse()
         
-        return releaces, versions, dates, footer
+        return releaces, versions, dates, new_footer
