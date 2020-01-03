@@ -127,12 +127,12 @@ class Repo():
 
         old_changelog = old_text.split('\n')
 
-        # This funktion seperates and retuns the Header Section.
+        # This function seperates and retuns the Header Section.
 
         text = header.remove_header(old_changelog)
 
-        # If the footer is valide, the funktion returns the ammount of old versions.
-        # If not, the Funktion will return False.
+        # If the footer is valide, the function returns the ammount of old versions.
+        # If not, the Function will return False.
         # The Footer Line gets removed
 
         old_versions = footer.verify_footer(old_changelog, releaces)
