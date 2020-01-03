@@ -1,4 +1,3 @@
-
 def changelog_entry(releace, version, date, bodytags):
 
     text = f"## { version } ({ date })\n\n"

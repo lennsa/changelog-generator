@@ -1,6 +1,7 @@
 import click
 from gitrepo import Repo
-from utils import filename
+
+filename = 'CHANGELOG.md'
 
 @click.group()
 def generator():

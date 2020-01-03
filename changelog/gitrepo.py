@@ -1,8 +1,11 @@
 import codecs
 import git
 import generate
-import utils
 import time
+
+def pop_list(pop_list):
+    for item in pop_list:
+        yield item
 
 class Repo():
 
@@ -170,7 +173,7 @@ class Repo():
             footer = None
 
         commits.reverse()
-        commits = utils.pop_list(commits)
+        commits = pop_list(commits)
 
         releace = []
         releaces = []
