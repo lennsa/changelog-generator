@@ -19,6 +19,7 @@ class Repo():
         while '/' in self.name:
             self.name = self.name[self.name.index('/') + 1:]
 
+
     def get_commits(self, types):
 
         commits = list(self.repo.iter_commits("master"))
@@ -28,6 +29,7 @@ class Repo():
             commits_list.append(self.commit_dict(commit, types))
         
         return commits_list
+
 
     def commit_dict(self, commit, types):
         
@@ -74,6 +76,7 @@ class Repo():
 
         return commit_dict
 
+
     def get_tags(self):
         
         tags = self.repo.tags
@@ -98,6 +101,7 @@ class Repo():
 
         return tags_list
 
+
     def generate_changelog(self, types, bodytags):
 
         text = header.generate_header(self.name)
@@ -116,6 +120,7 @@ class Repo():
         text += new_footer
 
         return text
+
 
     def add_changelog(self, old_text, types, bodytags):
 
@@ -151,6 +156,7 @@ class Repo():
 
         else:
             return None
+
 
     def get_changelog(self, types):
         tags = self.get_tags()
@@ -188,3 +194,4 @@ class Repo():
         dates.reverse()
         
         return releaces, versions, dates, new_footer
+        
