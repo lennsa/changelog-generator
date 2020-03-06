@@ -5,6 +5,7 @@ def changelog_entry(releace, version, date, bodytags):
     text += '\n'
     return text
 
+
 def changelog_entry_body(releace, bodytags):
 
     text = ''
@@ -32,6 +33,7 @@ def changelog_entry_body(releace, bodytags):
 
     return text
 
+
 def changelog_block(title, items):
 
     text = ''
@@ -42,6 +44,7 @@ def changelog_block(title, items):
             item = f"**{ item[:item.index(':') + 1] }**{ item[item.index(':') + 1:] }"
         text += f"* { item }\n"
     return text
+
 
 def get_relevant_texts(commits, bodytags):
 
