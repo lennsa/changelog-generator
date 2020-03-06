@@ -1,9 +1,10 @@
 import codecs
 import git
+import time
+
+import footer
 import generate
 import header
-import footer
-import time
 
 def pop_list(pop_list):
     for item in pop_list:
@@ -194,4 +195,3 @@ class Repo():
         dates.reverse()
         
         return releaces, versions, dates, new_footer
-        
