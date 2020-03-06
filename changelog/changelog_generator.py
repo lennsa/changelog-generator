@@ -1,4 +1,5 @@
 import click
+
 from gitrepo import Repo
 
 filename = 'CHANGELOG.md'
