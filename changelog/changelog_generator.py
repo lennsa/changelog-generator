@@ -25,7 +25,7 @@ def generate(repopath, types, bodytags):
     bodytags = bodytags.split(',')
     text = repo.generate_changelog(types, bodytags)
     if text:
-        with open(repopath + '/' + filename, 'w') as out_file:
+        with open(os.path.join(repopath, filename), 'w') as out_file:
             out_file.write(text)
         print('Done!')
 
