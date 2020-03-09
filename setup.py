@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(
-   name='chnangelog-generator',
+   name='changelog-generator',
    version='0.1.4',
    description='A module that generates changelogs with git. It uses conventional commits (https://www.conventionalcommits.org) and tags.',
    keywords='changelog conventional commit git',
