@@ -110,7 +110,7 @@ class Repo():
         releaces, versions, dates, new_footer = self.get_changelog(types)
 
         if len(releaces) == 0:
-            print("No versions structure available in this repo")
+            print("No version structure available in this repo")
             return
 
         # Render and append all releases to the changelog.
@@ -128,7 +128,7 @@ class Repo():
         releaces, versions, dates, new_footer = self.get_changelog(types)
 
         if len(releaces) == 0:
-            print("No versions structure available in this repo")
+            print("No version structure available in this repo")
             return
 
         old_changelog = old_text.split('\n')
