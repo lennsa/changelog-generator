@@ -2,9 +2,9 @@ import codecs
 import git
 import time
 
-import footer
-import generate
-import header
+import changelog.footer as footer
+import changelog.generate as generate
+import changelog.header as header
 
 def pop_list(pop_list):
     for item in pop_list:
