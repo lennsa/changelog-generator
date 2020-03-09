@@ -39,34 +39,36 @@ class Repo():
         message = message.split('\n\n')
         for index, section in enumerate(message):
             if section.endswith('\n'):
-                section = section [:-1] 
+                section = section [:-1]
+            if section.startswith('\n'):
+                section = section [1:]
             message[index] = section.replace('\n', ' ')
 
         commit_dict = {}
 
         commit_dict['message'] = message[0]
 
-        commit_dict['type'] = None
-        commit_dict['scope'] = None
-
         try:
             commit_dict['type'] = message[0][:message[0].index(': ')]
             commit_dict['description'] = message[0][message[0].index(': ')+2:]
         except ValueError:
             commit_dict['type'] = None
-
-        try:
-            commit_dict['scope'] = commit_dict['type'][commit_dict['type'].index('(')+1:commit_dict['type'].index(')')]
-        except (ValueError, AttributeError):
-            commit_dict['scope'] = None
-        else:
-            commit_dict['type'] = commit_dict['type'][:commit_dict['type'].index('(')]
-            commit_dict['description'] = commit_dict['scope'] + ': ' + message[0][message[0].index(': ')+2:]
+            commit_dict['description'] = message[0]
         
+        if (commit_dict['type']):
+            try:
+                commit_dict['scope'] = commit_dict['type'][commit_dict['type'].index('(')+1:commit_dict['type'].index(')')]
+                commit_dict['type'] = commit_dict['type'][:commit_dict['type'].index('(')]
+            except (ValueError):
+                commit_dict['scope'] = None
+        else: 
+            commit_dict['scope'] = None
+
         if commit_dict['type'] not in types:
             commit_dict['type'] = None
-            commit_dict['scope'] = None
-            commit_dict['description'] = message[0]
+        
+        if commit_dict['scope']:
+            commit_dict['description'] = commit_dict['scope'] + ': ' + commit_dict['description']
 
         if len(message) > 1:
             commit_dict['body'] = message[1]
