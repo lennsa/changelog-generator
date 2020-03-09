@@ -5,7 +5,7 @@ import git
 from changelog.gitrepo import Repo
 
 filename = 'CHANGELOG.md'
-types = 'feat,fix,refactor,docs'
+types = 'feat,fix,chore,docs,refactor,test'
 bodytags = 'BREAKING CHANGE,MAJOR'
 
 types_desctiption = 'commit types to show in changelog'
