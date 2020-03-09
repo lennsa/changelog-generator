@@ -1,6 +1,28 @@
 # changelog-generator Changelog
 
 
+## v0.1.6 (2020-3-9)
+
+
+## v0.1.5 (2020-3-9)
+
+### docs
+* added coments to the code (ef174b8b776a15f54eacf25d68347fc696ef0717)
+* updated changelog via "add" command (d8f3ac685863ac97a62bd76387eba81c3213be7d)
+* add licence (1fccc3e1ad0861ee14ce47fe810d780a9e7bc6ba)
+
+### refactor
+* added header.py; moved header and footer from generate.py (15d0486a8c7f116f7e8a36ba51e5af990dd4d462)
+* **rename:** main file (51b7124e579b9d53bb7f2fa17ace388d6edeec21)
+
+### fix
+* removed __init__.py (3b95203cdaabba9a836500821c9627fc0ea76058)
+* **docs:** language (abcc708337590add73b734a7bfc6960a1905e18b)
+
+### feat
+* the add command leaves title unchanged (e194e1ea95e3818da4ae2b383a2ec75e463cb385)
+
+
 ## v0.1.4 (2020-1-3)
 
 ### fix
@@ -70,4 +92,4 @@
 * new structure (cdcdc169f926fd8a2490ba2c8f0380453bda8fa1)
 
 
-::> 69 commits in 7 version tags, last considered commit: 2eb401560c8d1de74f1ca5fec61d0ffd6c4c6dae
+::> 75 commits in 9 version tags, last considered commit: 2bf075ac31dcc8f699459defafadf5074753f670
