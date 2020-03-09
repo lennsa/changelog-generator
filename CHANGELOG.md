@@ -25,6 +25,9 @@
 
 ## v0.1.4 (2020-1-3)
 
+### chore
+* **setup:** fix setup.py and make changelog an actual module (96265d1f9cc14b04db9a0af3a7e09ef3f194af31)
+
 ### fix
 * updated requirements (1c20c3d6f5daecbfaaeece77764fcaff1efd998f)
 
@@ -64,6 +67,9 @@
 ### feat
 * **commands:** support to define types and bodytags (2c09955bd34c72ef42b87b59022ef89d6575b09c)
 
+### test
+* this schouldn't appear in the changelog (1bcf9a04a15644f3ce8493ef9fa320637b61f795)
+
 
 ## v0.1.0 (2019-11-6)
 
@@ -92,4 +98,4 @@
 * new structure (cdcdc169f926fd8a2490ba2c8f0380453bda8fa1)
 
 
-::> 75 commits in 9 version tags, last considered commit: 2bf075ac31dcc8f699459defafadf5074753f670
+::> 81 commits in 9 version tags, last considered commit: 2bf075ac31dcc8f699459defafadf5074753f670
