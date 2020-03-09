@@ -1,6 +1,6 @@
 import click
 
-from gitrepo import Repo
+from changelog.gitrepo import Repo
 
 filename = 'CHANGELOG.md'
 
