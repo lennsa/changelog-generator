@@ -5,6 +5,11 @@ import git
 from changelog.gitrepo import Repo
 
 filename = 'CHANGELOG.md'
+types = 'feat,fix,refactor,docs'
+bodytags = 'BREAKING CHANGE,MAJOR'
+
+types_desctiption = 'commit types to show in changelog'
+bodytags_description = 'body tags that schould be shown in changelog'
 
 @click.group()
 def generator():
@@ -12,8 +17,8 @@ def generator():
 
 @generator.command()
 @click.argument('repopath', default='.')
-@click.option("--types", default='feat,fix,refactor,docs', help="commit types to show in changelog")
-@click.option("--bodytags", default='BREAKING CHANGE,MAJOR', help="body tags that schould be shown in changelog")
+@click.option("--types", default=types, help=types_desctiption)
+@click.option("--bodytags", default=bodytags, help=bodytags_description)
 def generate(repopath, types, bodytags):
     repo = Repo(repopath)
     types = types.split(',')
@@ -26,8 +31,8 @@ def generate(repopath, types, bodytags):
 
 @generator.command()
 @click.argument('repopath', default='.')
-@click.option("--types", default='feat,fix,refactor,docs', help="commit types to show in changelog")
-@click.option("--bodytags", default='BREAKING CHANGE,MAJOR', help="body tags that schould be shown in changelog")
+@click.option("--types", default=types, help=types_desctiption)
+@click.option("--bodytags", default=bodytags, help=bodytags_description)
 def add(repopath, types, bodytags):
     repo = Repo(repopath)
     types = types.split(',')
@@ -46,8 +51,8 @@ def add(repopath, types, bodytags):
 
 @generator.command()
 @click.argument('repopath', default='.')
-@click.option("--types", default='feat,fix,refactor,docs', help="commit types to show in changelog")
-@click.option("--bodytags", default='BREAKING CHANGE,MAJOR', help="body tags that schould be shown in changelog")
+@click.option("--types", default=types, help=types_desctiption)
+@click.option("--bodytags", default=bodytags, help=bodytags_description)
 def printout(repopath, types, bodytags):
     repo = Repo(repopath)
     types = types.split(',')
